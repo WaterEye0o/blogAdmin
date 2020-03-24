@@ -4,5 +4,5 @@ module.exports = app => {
   app.get('/', (req, res) => {
     res.render('index', { title: 'Express' });
   });
-  app.get('/user', user.userGet)
+  app.get('/user', user.userGet);
 };

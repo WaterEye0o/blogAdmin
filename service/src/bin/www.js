@@ -7,7 +7,7 @@
 const app = require('../app');
 const debug = require('debug')('blog:server');
 const http = require('http');
-const config = require('../config')
+const config = require('../config');
 
 /**
  * Get port from environment and store in Express.
@@ -59,9 +59,7 @@ function onError(error) {
     throw error;
   }
 
-  var bind = typeof port === 'string'
-    ? 'Pipe ' + port
-    : 'Port ' + port;
+  var bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port;
 
   // handle specific listen errors with friendly messages
   switch (error.code) {
@@ -83,11 +81,9 @@ function onError(error) {
  */
 
 function onListening() {
-  console.log('service success ↓↓↓')
-  console.log(`service listening on port ${port}!`)
+  console.log('service success ↓↓↓');
+  console.log(`service listening on port ${port}!`);
   var addr = server.address();
-  var bind = typeof addr === 'string'
-    ? 'pipe ' + addr
-    : 'port ' + addr.port;
+  var bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }

@@ -31,21 +31,21 @@ const User = db.defineModel('User', {
     autoIncrement: true,
   },
   nickname: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
   },
   mobile: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
   },
   email: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
   },
   password: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
   },
   isEmail: {
     type: Sequelize.BOOLEAN,
-    defaultValue: false
-  }
-})
+    defaultValue: false,
+  },
+});
 
-module.exports = User
+module.exports = User;

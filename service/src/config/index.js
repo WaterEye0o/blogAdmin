@@ -3,7 +3,7 @@ const isDevMode = Object.is(environment, 'development');
 const isProdMode = Object.is(environment, 'production');
 
 module.exports = {
-  port: isDevMode? 3000 : 3030,
+  port: isDevMode ? 3000 : 3030,
 
   db: {
     // 主机名称，一般是本机
@@ -15,7 +15,6 @@ module.exports = {
     // 创建数据库时设置的密码
     password: '123456',
     // 创建的数据库
-    database: 'myblog'
-  }
-
-}
+    database: 'myblog',
+  },
+};
