@@ -1,4 +1,14 @@
-export default {
+const async = {
+  'menu.person': '用户管理',
+  'menu.articles': '文章管理',
+  'menu.messages': '留言管理',
+  'menu.tags': '标签管理',
+  'menu.course': '成长历程',
+  'menu.share': '生活分享',
+  'menu.collects': '异常收集',
+}
+
+const antd = {
   'menu.welcome': '欢迎',
   'menu.more-blocks': '更多区块',
   'menu.home': '首页',
@@ -49,4 +59,9 @@ export default {
   'menu.editor.flow': '流程编辑器',
   'menu.editor.mind': '脑图编辑器',
   'menu.editor.koni': '拓扑编辑器',
-};
+}
+
+export default {
+  ...async,
+  ...antd
+}

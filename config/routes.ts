@@ -58,29 +58,68 @@ const asyncRoutes: Router = {
   authority: ['admin', 'user'],
   routes: [
     {
-      name: '用户管理',
+      name: 'person',
       icon: 'user',
       path: '/person',
       component: './person',
     },
     {
-      name: '文章管理',
+      name: 'articles',
       icon: 'table',
-      path: '/article',
+      path: '/articles',
       routes: [
         {
-          path: '/article',
-          component: './article',
+          path: '/articles',
+          component: './articles',
         },
         {
-          path: '/article/:id',
-          component: './article/$id',
+          path: '/articles/:id',
+          component: './articles/$id',
         },
         {
-          path: '/article/comments/:id',
-          component: './article/comments',
+          path: '/articles/comments/:id',
+          component: './articles/comments',
         }
       ]
+    },
+    {
+      name: 'messages',
+      icon: 'table',
+      path: '/messages',
+      routes: [
+        {
+          path: '/messages',
+          component: './messages',
+        },
+        {
+          path: '/messages/:id',
+          component: './messages/$id',
+        }
+      ]
+    },
+    {
+      name: 'tags',
+      icon: 'table',
+      path: '/tags',
+      component: './tags',
+    },
+    {
+      name: 'course',
+      icon: 'table',
+      path: '/course',
+      component: './course',
+    },
+    {
+      name: 'share',
+      icon: 'table',
+      path: '/share',
+      component: './share',
+    },
+    {
+      name: 'collects',
+      icon: 'table',
+      path: '/collects',
+      component: './collects',
     },
     {
       path: '/',
