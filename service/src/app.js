@@ -7,6 +7,7 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 
 const routes = require('./routes');
+const cors = require('./middleware/cors');
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(bodyParser());
 app.use(express.static(path.join(__dirname, '../public')));
+app.use(express.static(path.join(__dirname, '../upload')));
 app.use(
   session({
     secret: 'blog_service_cookie',
@@ -29,6 +31,8 @@ app.use(
     cookie: { maxAge: 60 * 1000 * 30, httpOnly: true }, //过期时间
   }),
 );
+
+app.use(cors);
 
 routes(app);
 

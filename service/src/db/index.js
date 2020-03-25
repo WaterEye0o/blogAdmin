@@ -29,15 +29,15 @@ exports.defineModel = function(name, attributes) {
   }
   attrs.version = {
     type: Sequelize.BIGINT,
-    // allowNull: false
+    allowNull: true
   };
   attrs.createUser = {
     type: Sequelize.STRING,
-    allowNull: false,
+    allowNull: true,
   };
   attrs.updateUser = {
     type: Sequelize.STRING,
-    allowNull: false,
+    allowNull: true,
   };
   return sequelize.define(name, attrs, {
     tableName: name,

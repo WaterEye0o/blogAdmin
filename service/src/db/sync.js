@@ -14,4 +14,4 @@ for (var f of js_files) {
   var name = f.substring(0, f.length - 3);
   module.exports[name] = require(path.join(__dirname, '../models', f));
 }
-sequelize.sync({ force: true });
+sequelize.sync();

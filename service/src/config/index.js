@@ -17,4 +17,6 @@ module.exports = {
     // 创建的数据库
     database: 'myblog',
   },
+
+  secretKey: 'blog_service'
 };

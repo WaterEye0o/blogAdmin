@@ -1,28 +1,5 @@
 const Sequelize = require('sequelize');
-// const Model = Sequelize.Model;
 const db = require('../db/index.js');
-
-// class User extends Model {}
-// User.init({
-//   id: {
-//     type: Sequelize.INTEGER,
-//     primaryKey: true,
-//     autoIncrement: true,
-//   },
-//   mobile: {
-//     type: Sequelize.STRING
-//   },
-//   email: {
-//     type: Sequelize.STRING
-//   },
-//   password: {
-//     type: Sequelize.STRING
-//   },
-//   isEmail: {
-//     type: Sequelize.BOOLEAN,
-//     defaultValue: false
-//   }
-// }, { Sequelize, modelName: 'User' })
 
 const User = db.defineModel('User', {
   id: {
@@ -33,7 +10,7 @@ const User = db.defineModel('User', {
   nickname: {
     type: Sequelize.STRING,
   },
-  mobile: {
+  avatar: {
     type: Sequelize.STRING,
   },
   email: {
@@ -41,10 +18,6 @@ const User = db.defineModel('User', {
   },
   password: {
     type: Sequelize.STRING,
-  },
-  isEmail: {
-    type: Sequelize.BOOLEAN,
-    defaultValue: false,
   },
 });
 
