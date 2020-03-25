@@ -1,6 +1,5 @@
 // 同步数据库表名和models模型名
-
-const sequelize = require('./index.js').sequelize;
+const { sequelize } = require('./db.js');
 const fs = require('fs');
 const path = require('path');
 
@@ -14,4 +13,4 @@ for (var f of js_files) {
   var name = f.substring(0, f.length - 3);
   module.exports[name] = require(path.join(__dirname, '../models', f));
 }
-sequelize.sync();
+sequelize.sync({force: true});

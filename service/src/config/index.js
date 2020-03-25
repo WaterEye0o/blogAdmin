@@ -3,7 +3,7 @@ const isDevMode = Object.is(environment, 'development');
 const isProdMode = Object.is(environment, 'production');
 
 module.exports = {
-  port: isDevMode ? 3000 : 3030,
+  port: isDevMode ? 9000 : 9090,
 
   db: {
     // 主机名称，一般是本机

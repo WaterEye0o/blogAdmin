@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const db = require('../db/index.js');
+const db = require('../config/db.js');
 
 const Article = db.defineModel('Article', {
   id: {
@@ -11,10 +11,10 @@ const Article = db.defineModel('Article', {
     type: Sequelize.STRING
   },
   brief: {
-    type: Sequelize.Text
+    type: Sequelize.TEXT
   },
   content: {
-    type: Sequelize.Text
+    type: Sequelize.TEXT
   },
   createTime: {
     type: Sequelize.STRING
