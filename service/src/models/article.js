@@ -33,6 +33,9 @@ const Article = db.defineModel('Article', {
   },
   pic: {
     type: Sequelize.STRING
+  },
+  tagId: {
+    type: Sequelize.INTEGER
   }
 });
 

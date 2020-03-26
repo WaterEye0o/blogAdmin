@@ -105,19 +105,19 @@ const asyncRoutes: Router = {
     },
     {
       name: 'course',
-      icon: 'course',
+      icon: 'group',
       path: '/course',
       component: './course',
     },
     {
       name: 'share',
-      icon: 'share',
+      icon: 'shareAlt',
       path: '/share',
       component: './share',
     },
     {
       name: 'collects',
-      icon: 'collect',
+      icon: 'warning',
       path: '/collects',
       component: './collects',
     },
