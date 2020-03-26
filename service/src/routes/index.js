@@ -1,5 +1,5 @@
 const Upload = require('../controller/upload');
-const User = require('../controller/users');
+const User = require('../controller/user');
 const Article = require('../controller/article');
 
 module.exports = app => {

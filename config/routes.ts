@@ -84,7 +84,7 @@ const asyncRoutes: Router = {
     },
     {
       name: 'messages',
-      icon: 'table',
+      icon: 'message',
       path: '/messages',
       routes: [
         {
@@ -99,25 +99,25 @@ const asyncRoutes: Router = {
     },
     {
       name: 'tags',
-      icon: 'table',
+      icon: 'tags',
       path: '/tags',
       component: './tags',
     },
     {
       name: 'course',
-      icon: 'table',
+      icon: 'course',
       path: '/course',
       component: './course',
     },
     {
       name: 'share',
-      icon: 'table',
+      icon: 'share',
       path: '/share',
       component: './share',
     },
     {
       name: 'collects',
-      icon: 'table',
+      icon: 'collect',
       path: '/collects',
       component: './collects',
     },

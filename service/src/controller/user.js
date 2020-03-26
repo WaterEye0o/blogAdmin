@@ -1,7 +1,11 @@
 const dbUser = require('../db/user');
+const utils = require('../utils');
 
 const gets = async (req, res) => {
-  let result = await dbUser.get(req.query);
+  let { query } = req;
+  let offset = query.page? Number(query.page) : 1;
+  let limit = query.size? Number(query.size) : 10;
+  let result = await dbUser.gets({ offset, limit });
   res.status(200).json({
     code: 1,
     data: result
@@ -9,7 +13,12 @@ const gets = async (req, res) => {
 };
 
 const register = async (req, res) => {
-  let result = await dbUser.register(req.body);
+  let { body } = req;
+  let query = {
+    ...body,
+    password: utils.setMD5Encryption(body.password)
+  };
+  let result = await dbUser.register(query);
   res.status(200).json({
     code: 1,
     data: result
@@ -17,12 +26,19 @@ const register = async (req, res) => {
 }
 
 const login = async (req, res) => {
-  let result = await dbUser.login(req.body);
+  let { body } = req;
+  let query = {
+    ...body,
+    password: utils.setMD5Encryption(body.password)
+  };
+  let result = await dbUser.login(query);
   if (result) {
     req.session.reload(err => console.log(err));
+    req.session.user = result;
+    req.session.isLogin = 1;
     res.status(200).json({
       code: 1,
-      data: '登录成功'
+      data: result
     })
   } else {
     res.status(200).json({
