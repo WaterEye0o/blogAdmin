@@ -35,7 +35,8 @@ const Article = db.defineModel('Article', {
     type: Sequelize.STRING
   },
   tagId: {
-    type: Sequelize.INTEGER
+    type: Sequelize.INTEGER,
+    allowNull: true
   }
 });
 

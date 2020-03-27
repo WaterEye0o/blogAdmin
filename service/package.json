@@ -11,7 +11,8 @@
     "build": "babel ./src --out-dir dist",
     "prod": "cross-env NODE_ENV=production npm-run-all clean build server:prod",
     "watch": "nodemon",
-    "sync": "node ./src/config/sync"
+    "sync": "node ./src/config/sync",
+    "auto": "node ./src/config/auto"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
@@ -32,6 +33,7 @@
     "querystring": "^0.2.0",
     "rimraf": "^3.0.2",
     "sequelize": "^5.21.5",
+    "shell": "^0.5.0",
     "tedious": "^8.0.1"
   },
   "devDependencies": {

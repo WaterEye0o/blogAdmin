@@ -19,5 +19,6 @@ module.exports = app => {
   app.post('/article/add', Article.add);
   app.post('/article/del', Article.del);
   app.post('/article/update', Article.update);
+  app.post('/article/likes', Article.likes);
 
 };

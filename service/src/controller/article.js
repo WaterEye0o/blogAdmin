@@ -28,7 +28,7 @@ const add = async (req, res) => {
   if (result) {
     res.json({
       code: 1,
-      data: result
+      data: '添加文章成功'
     })
   } else {
     res.json({
@@ -94,10 +94,35 @@ const get = async (req, res) => {
   }
 }
 
+const likes = async (req, res) => {
+  // type 默认值为1, 1为点赞 0为取消
+  let { id, type = 1 } = req.body;
+  if (!id) {
+    res.json({
+      code: 0,
+      data: '参数id为必传项'
+    });
+    return
+  };
+  let result = await dbArtcle.likes({ id, type });
+  if (result) {
+    type == 1
+    ? res.json({
+      code: 1,
+      data: '点赞成功'
+    })
+    : res.json({
+      code: 1,
+      data: '取消成功'
+    })
+  }
+}
+
 module.exports = {
   gets,
   add,
   del,
   update,
-  get
+  get,
+  likes
 }

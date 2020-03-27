@@ -24,6 +24,16 @@ const update = async query => {
 
 const get = async query => {
   let res = await articleModels.findOne({ where: { id: query }});
+  res.visits++;
+  await res.save();
+  return res
+}
+
+const likes = async query => {
+  let { id, type } = query;
+  let res = await articleModels.findOne({ where: { id }});
+  type == 1? res.likes++ : res.likes--;
+  await res.save();
   return res
 }
 
@@ -32,5 +42,6 @@ module.exports = {
   add,
   del,
   update,
-  get
+  get,
+  likes
 }
