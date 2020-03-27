@@ -13,6 +13,9 @@ const Course = db.defineModel('Course', {
   brief: {
     type: Sequelize.STRING,
   },
+  dateTime: {
+    type: Sequelize.STRING
+  },
   createTime: {
     type: Sequelize.STRING
   }

@@ -1,13 +1,14 @@
 export interface TableListItem {
-  key: number;
-  id: number;
+  key?: number | string;
+  id?: number;
   title: string;
   brief: string;
-  content: string;
+  content?: string;
   createTime: string;
   visits: number;
-  comments: number;
+  comments?: number;
   likes: number;
-  source: string;
-  pic: string
+  source?: string;
+  pic: string,
+  tagId?: number
 }
