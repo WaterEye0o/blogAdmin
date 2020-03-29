@@ -1,6 +1,7 @@
 import { AnyAction, Reducer } from 'redux';
 import { EffectsCommandMap } from 'dva';
 import { TableListItem } from './data.d';
+import { queryArticleList, deleteArticle } from './service' 
 
 export interface StateType {
   dataSource: TableListItem[];
@@ -15,47 +16,46 @@ export interface ModelType {
   namespace: string;
   state: StateType | {};
   effects: {
-    // load: Effect
+    fetchList: Effect,
+    del: Effect
   };
   reducers: {
     queryList: Reducer<StateType>;
   };
 }
 
-const temp: TableListItem = { title: '文章测试', brief: '测试简介', pic: '测试图片地址', visits: 10, likes: 10, createTime: '2020/3/27' }
-const data: TableListItem[] = []
-for (let i = 0; i < 10; i++) {
-  data.push({
-    ...temp,
-    key: i + '-' + i,
-    id: i + 1
-  })
-}
-
 const model: ModelType = {
-  namespace: 'personList',
+  namespace: 'articles',
   state: {
     dataSource: []
   },
   effects: {
-    // *load({ payload }, { call, put, select }) {
-    //   console.log('hahh')
-    //   yield put({
-    //     type: 'queryList', 
-    //     payload: {
-    //       data: data
-    //     }
-    //   })
-    // }
+    *fetchList({ payload }, { call, put, select }) {
+      let result = yield call(queryArticleList)
+      yield put({
+        type: 'queryList',
+        payload: result.list
+      })
+    },
+    *del({ payload }, { call, put, select }) {
+      let result = yield call(deleteArticle, payload)
+      if (result.code == 1) {
+        // let res = yield call(queryArticleList)
+        // yield put({
+        //   type: 'queryList',
+        //   payload: res.list
+        // })
+      } 
+    }
   },
   reducers: {
     queryList(state, { type, payload }) {
       return {
         ...state,
-        dataSource: payload.data
+        dataSource: payload
       }
     }
   }
 }
 
-// export default model
+export default model

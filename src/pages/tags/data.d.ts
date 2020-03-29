@@ -1,6 +1,6 @@
 export interface TableListItem {
-  key: number;
-  id: number;
+  key?: number;
+  id?: number | string;
   title: string;
-  createTime: string;
+  createTime: string | date;
 }

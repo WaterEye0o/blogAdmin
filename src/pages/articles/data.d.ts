@@ -1,6 +1,6 @@
 export interface TableListItem {
   key?: number | string;
-  id?: number;
+  id?: number | string;
   title: string;
   brief: string;
   content?: string;

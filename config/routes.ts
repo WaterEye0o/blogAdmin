@@ -73,7 +73,11 @@ const asyncRoutes: Router = {
           component: './articles',
         },
         {
-          path: '/articles/:id',
+          path: '/articles/add',
+          component: './articles/$id',
+        },
+        {
+          path: '/articles/edit/:id',
           component: './articles/$id',
         },
         {

@@ -6,8 +6,8 @@ import defaultSettings from './defaultSettings'; // https://umijs.org/config/
 import themePluginConfig from './themePluginConfig';
 import proxy from './proxy';
 import webpackPlugin from './plugin.config';
-import routes from './routes'
-
+import routes from './routes';
+import { createLogger } from 'redux-logger';
 const { pwa } = defaultSettings; // preview.pro.ant.design only do not use in your production ;
 // preview.pro.ant.design 专用环境变量，请不要在你的项目中使用它。
 
@@ -21,6 +21,7 @@ const plugins: IPlugin[] = [
       antd: true,
       dva: {
         hmr: true,
+        onAction: createLogger(),
       },
       locale: {
         // default false
@@ -42,12 +43,14 @@ const plugins: IPlugin[] = [
               importWorkboxFrom: 'local',
             },
           }
-        : false, // default close dll, because issue https://github.com/ant-design/ant-design-pro/issues/4665
+        : false,
+      // default close dll, because issue https://github.com/ant-design/ant-design-pro/issues/4665
       // dll features https://webpack.js.org/plugins/dll-plugin/
       // dll: {
       //   include: ['dva', 'dva/router', 'dva/saga', 'dva/fetch'],
       //   exclude: ['@babel/runtime', 'netlify-lambda'],
       // },
+      dll: true,
     },
   ],
   [
@@ -108,7 +111,7 @@ export default {
         resourcePath: string;
       },
       _: string,
-      localName: string,
+      localName: string
     ) => {
       if (
         context.resourcePath.includes('node_modules') ||
@@ -137,4 +140,6 @@ export default {
   },
   proxy: proxy[REACT_APP_ENV || 'dev'],
   chainWebpack: webpackPlugin,
+  treeShaking: true,
 } as IConfig;
+
