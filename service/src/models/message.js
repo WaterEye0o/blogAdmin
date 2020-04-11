@@ -7,9 +7,6 @@ const Message = db.defineModel('Message', {
     primaryKey: true,
     autoIncrement: true,
   },
-  userName: {
-    type: Sequelize.STRING,
-  },
   userId: {
     type: Sequelize.INTEGER,
   },

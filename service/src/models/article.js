@@ -36,7 +36,11 @@ const Article = db.defineModel('Article', {
   },
   tagId: {
     type: Sequelize.INTEGER,
-    allowNull: true
+    allowNull: true,
+    references: {
+      model: 'Tags',
+      key: 'id',
+    }
   }
 });
 

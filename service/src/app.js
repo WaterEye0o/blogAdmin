@@ -34,6 +34,11 @@ app.use(
 
 app.use(cors);
 
+app.use((req, res, next) => {
+  res.header('Access-Encodeing', 'gizp')
+  next()
+})
+
 routes(app);
 
 // catch 404 and forward to error handler

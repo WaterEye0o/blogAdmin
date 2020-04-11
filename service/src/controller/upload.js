@@ -1,6 +1,7 @@
 const formidable = require('formidable');
 const path = require('path');
 // const fs = require('fs');
+const API_STATUS = require('./api_status')
 
 module.exports = async (req, res, next) => {
   try {
@@ -18,9 +19,9 @@ module.exports = async (req, res, next) => {
       let imgName = files.file.name;
       let imgPath = files.file.path;
       // 返回路径和文件名
-      res.status(200).json({code: 1, data: { name: imgName, path: imgPath }});
+      res.status(200).json({code: API_STATUS.SUCCESS, data: { name: imgName, path: imgPath }});
     })
   } catch {
-    res.status(200).json({code: 0, data: '上传失败'});
+    res.status(200).json({code: API_STATUS.FAIL, data: '上传失败'});
   }
 }

@@ -1,5 +1,6 @@
 const dbArtcle = require('../db/article');
 const utils = require('../utils');
+const API_STATUS = require('./api_status')
 
 const gets = async (req, res) => {
   let { query } = req;
@@ -8,7 +9,7 @@ const gets = async (req, res) => {
   let result = await dbArtcle.gets({ offset, limit });
   if (result) {
     res.status(200).json({
-      code: 1,
+      code: API_STATUS.SUCCESS,
       data: result
     })
   }
@@ -27,12 +28,12 @@ const add = async (req, res) => {
   let result = await dbArtcle.add(query);
   if (result) {
     res.json({
-      code: 1,
+      code: API_STATUS.SUCCESS,
       data: '添加文章成功'
     })
   } else {
     res.json({
-      code: 0,
+      code: API_STATUS.FAIL,
       data: '添加文章失败'
     })
   }
@@ -43,12 +44,12 @@ const del = async (req, res) => {
   let result = await dbArtcle.del(id);
   if (result) {
     res.json({
-      code: 1,
+      code: API_STATUS.SUCCESS,
       data: '删除文章成功'
     })
   } else {
     res.json({
-      code: 0,
+      code: API_STATUS.FAIL,
       data: '删除文章失败'
     })
   }
@@ -58,7 +59,7 @@ const update = async (req, res) => {
   let { id } = req.body;
   if (!id) {
     res.json({
-      code: 0,
+      code: API_STATUS.SUCCESS,
       data: '参数id为必传项'
     });
     return
@@ -66,12 +67,12 @@ const update = async (req, res) => {
   let result = await dbArtcle.update(req.body);
   if (result) {
     res.json({
-      code: 1,
+      code: API_STATUS.SUCCESS,
       data: '修改成功'
     })
   } else {
     res.json({
-      code: 0,
+      code: API_STATUS.FAIL,
       data: '修改失败'
     })
   }
@@ -83,12 +84,12 @@ const get = async (req, res) => {
   if (result) {
     result['createTime'] = utils.format(result['createTime']);
     res.json({
-      code: 1,
+      code: API_STATUS.SUCCESS,
       data: result
     })
   } else {
     res.json({
-      code: 0,
+      code: API_STATUS.FAIL,
       data: '查询详情失败'
     })
   }
@@ -99,7 +100,7 @@ const likes = async (req, res) => {
   let { id, type = 1 } = req.body;
   if (!id) {
     res.json({
-      code: 0,
+      code: API_STATUS.FAIL,
       data: '参数id为必传项'
     });
     return
@@ -108,11 +109,11 @@ const likes = async (req, res) => {
   if (result) {
     type == 1
     ? res.json({
-      code: 1,
+      code: API_STATUS.SUCCESS,
       data: '点赞成功'
     })
     : res.json({
-      code: 1,
+      code: API_STATUS.SUCCESS,
       data: '取消成功'
     })
   }
