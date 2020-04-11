@@ -9,17 +9,17 @@ import { Dispatch } from 'redux';
 import { connect } from 'dva';
 
 interface ArticleListProps {
-  articles: StateType;
+  articles: StateType
   dispatch: Dispatch<any>
+  history: any
 }
 
 const Articles: React.FC<ArticleListProps> = (props) => {
-  console.log(props)
-  let { dispatch, articles, history } = props
-  let { dataSource } = articles
-  let [ selectedRows, setSelectedRows ] = useState<TableListItem[]>([])
-  let actionRef = useRef<ActionType>()
-  let handleRemove = async (selectedRows: TableListItem[]) => {
+  const { dispatch, articles, history } = props
+  const { dataSource } = articles
+  const [ selectedRows, setSelectedRows ] = useState<TableListItem[]>([])
+  const actionRef = useRef<ActionType>()
+  const handleRemove = async (selectedRows: TableListItem[]) => {
     console.log(selectedRows)
     let hide = message.loading('正在删除')
     if (!selectedRows || selectedRows.length == 0) return false
@@ -29,16 +29,16 @@ const Articles: React.FC<ArticleListProps> = (props) => {
       type: 'articles/del',
       payload: { id: ids.join(',') }
     })
-    fetch() && setSelectedRows([])
+    fetchData() && setSelectedRows([])
     hide()
-    // message.success('删除成功')
+    message.success('删除成功')
     return true
   }
-  const fetch = async () => {
+  const fetchData = async () => {
     await dispatch({type: 'articles/fetchList'})
   }
   useEffect(() => {
-    fetch()
+    fetchData()
   }, [])
 
   let columns: ProColumns<TableListItem>[] = [
@@ -79,11 +79,11 @@ const Articles: React.FC<ArticleListProps> = (props) => {
             onClick={async () => {
               let hide = message.loading('正在删除')
               await dispatch({
-                type: 'personList/del',
+                type: 'articles/del',
                 payload: { id: record.id }
               })
-              fetch()
-              hide()
+              fetchData() && hide()
+              message.success('删除成功')
             }} />
         </>
       ),

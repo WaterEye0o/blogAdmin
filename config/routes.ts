@@ -1,14 +1,14 @@
 import _ from 'lodash'
 
 interface Router {
-  path?: string,
-  component?: string,
-  Routes?: string[],
-  routes?: Router[],
-  authority?: string[],
-  name?: string,
-  icon?: string,
-  redirect?: string
+  path?: string;
+  component?: string;
+  Routes?: string[];
+  routes?: Router[] | undefined;
+  authority?: string[];
+  name?: string;
+  icon?: string;
+  redirect?: string;
 }
 
 const baseRoutes: Router = {
@@ -58,10 +58,10 @@ const asyncRoutes: Router = {
   authority: ['admin', 'user'],
   routes: [
     {
-      name: 'person',
+      name: 'account',
       icon: 'user',
-      path: '/person',
-      component: './person',
+      path: '/account',
+      component: './account',
     },
     {
       name: 'articles',
@@ -137,14 +137,14 @@ const asyncRoutes: Router = {
 }
 
 // eslint-disable-next-line func-names
-const routes: any = function() {
+const routes: Router[] = (function() {
   const arr: Router = _.cloneDeep(baseRoutes)
   arr.routes.push(userRoutes)
   arr.routes.push(asyncRoutes)
   return _.concat([], arr)
-}
+})()
 
-export default routes()
+export default routes
 
 
 

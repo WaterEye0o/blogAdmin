@@ -5,18 +5,18 @@ messageModels.belongsTo(userModel, { foreignKey: 'userid', targetKey: 'id', as: 
 
 const gets = async query => {  
   let { offset, limit } = query;
-  let res = await articleModels.findAll({ include: [{ model: userModel, as: 'user' }],
+  let res = await messageModels.findAll({ include: [{ model: userModel, as: 'user' }],
   limit })
   return res
 }
 
 const add = async query => {
-  let res = await articleModels.create(query);
+  let res = await messageModels.create(query);
   return res
 }
 
 const del = async query => {
-  let res = await articleModels.destroy({ where: { id: query }});
+  let res = await messageModels.destroy({ where: { id: query }});
   return res
 }
 

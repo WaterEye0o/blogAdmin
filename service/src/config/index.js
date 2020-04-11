@@ -3,8 +3,9 @@ const isDevMode = Object.is(environment, 'development');
 const isProdMode = Object.is(environment, 'production');
 
 module.exports = {
+  // 设置端口号
   port: isDevMode ? 9000 : 9090,
-
+  // 设置数据库连接
   db: {
     // 主机名称，一般是本机
     host: 'localhost',
@@ -17,6 +18,8 @@ module.exports = {
     // 创建的数据库
     database: 'myblog',
   },
-
-  secretKey: 'blog_service'
+  // 设置密钥
+  secretKey: 'blog_service',
+  // 设置当前版本号
+  version: 1 
 };

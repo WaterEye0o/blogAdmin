@@ -1,7 +1,8 @@
 import { AnyAction, Reducer } from 'redux';
 import { EffectsCommandMap } from 'dva';
 import { TableListItem } from './data.d';
-import { queryArticleList, deleteArticle } from './service' 
+import { queryArticleList, deleteArticle } from '@/services/articles'
+import { API_CODE } from '@/utils/config'
 
 export interface StateType {
   dataSource: TableListItem[];
@@ -32,20 +33,16 @@ const model: ModelType = {
   effects: {
     *fetchList({ payload }, { call, put, select }) {
       let result = yield call(queryArticleList)
-      yield put({
-        type: 'queryList',
-        payload: result.list
-      })
+      let code = Number(result.code)
+      if (code == API_CODE.SUCCESS) {
+        yield put({
+          type: 'queryList',
+          payload: result.data
+        })
+      }
     },
     *del({ payload }, { call, put, select }) {
-      let result = yield call(deleteArticle, payload)
-      if (result.code == 1) {
-        // let res = yield call(queryArticleList)
-        // yield put({
-        //   type: 'queryList',
-        //   payload: res.list
-        // })
-      } 
+      yield call(deleteArticle, payload)
     }
   },
   reducers: {

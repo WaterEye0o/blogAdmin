@@ -13,11 +13,11 @@ interface submitFormProps {
 const submitForm: React.FC<submitFormProps> = props => {
   const [form] = Form.useForm();
 
-  const { title, modalVisible, onSubmit: handleAdd, onCancel } = props;
+  const { title, modalVisible, onSubmit, onCancel } = props;
   const okHandle = async () => {
     const fieldsValue = await form.validateFields();
     form.resetFields();
-    handleAdd(fieldsValue.val);
+    onSubmit(fieldsValue.desc);
   };
   return (
     <Modal
@@ -29,12 +29,13 @@ const submitForm: React.FC<submitFormProps> = props => {
     >
       <Form form={form}>
         <FormItem
-          labelCol={{ span: 5 }}
-          wrapperCol={{ span: 15 }}
-          label="描述"
-          name="val"
+          labelCol={{ span: 4 }}
+          wrapperCol={{ span: 20 }}
+          label="标签名"
+          name="desc"
+          rules={[{ required: true, message: '请输入标签名!' }]}
         >
-          <Input placeholder="请输入" />
+          <Input placeholder="请输入" allowClear />
         </FormItem>
       </Form>
     </Modal>

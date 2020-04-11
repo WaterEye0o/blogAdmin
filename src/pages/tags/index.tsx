@@ -3,18 +3,25 @@ import { DeleteOutlined, PlusOutlined, EditOutlined } from '@ant-design/icons';
 import React, { useState, useEffect, useRef } from 'react';
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import ProTable, { ProColumns, ActionType } from '@ant-design/pro-table';
-import { TableListItem } from './data.d';
-import { getList, addList, delList, updateList } from './service'
+import { queryList, addList, delList, updateList } from '@/services/tags'
 import SubmitForm from './components/submitForm'
+import { API_CODE } from '@/utils/config'
+
+interface TableListItem {
+  id: number;
+  title: string;
+  createTime?: string;
+}
+
 
 const Tags: React.FC<{}> = () => {
-  let [ dataSource, setDataSource ] = useState<TableListItem[]>([])
-  let [ selectedRows, setSelectedRows ] = useState<TableListItem[]>([])
-  let [ modalVisible, handleModalVisible ] = useState(false)
-  let [ modalTitle, handleModalTitle ] = useState<string>('新建标签')
-  let [ editId, setEditId ] = useState<any>('')
-  let actionRef = useRef<ActionType>()
-  let columns: ProColumns<TableListItem>[] = [
+  const [ dataSource, setDataSource ] = useState<TableListItem[]>([])
+  const [ selectedRows, setSelectedRows ] = useState<TableListItem[]>([])
+  const [ modalVisible, handleModalVisible ] = useState<boolean>(false)
+  const [ modalTitle, handleModalTitle ] = useState<string>('新建标签')
+  const [ editId, setEditId ] = useState<number>(0)
+  const actionRef = useRef<ActionType>()
+  const columns: ProColumns<TableListItem>[] = [
     {
       title: '序号',
       dataIndex: 'id',
@@ -51,38 +58,40 @@ const Tags: React.FC<{}> = () => {
       ),
     },
   ]
-  let handleRemove = async (selectedRows: TableListItem[]) => {
+  const handleRemove = async (selectedRows: TableListItem[]) => {
     let hide = message.loading('正在删除')
     if (!selectedRows || selectedRows.length == 0) return false
     let ids: string[] | any = []
     selectedRows.forEach(it => typeof it !== 'undefined' && ids.push(it.id))
     let res = await delList({ id: ids.join(',') })
-    res.code == 1 && fetchList() && setSelectedRows([])
+    Number(res.code) == API_CODE.SUCCESS && fetchList() && setSelectedRows([])
     hide()
-    // message.success('删除成功')
+    message.success('删除成功')
     return true
   }
 
 
-  let handleAddAndEdit = async (val: any) => {
-    let res: any = false
-    if (editId == '') {
-      let hide = message.loading('正在添加')
-      res = await addList({ val: val })
+  const handleAddAndEdit = async (val: any) => {
+    let res: any = false, hide = null
+    if (editId == 0) {
+      hide = message.loading('正在添加')
+      res = await addList({ title: val })
       hide()
+      message.success('添加成功')
     } else {
-      let hide = message.loading('正在修改')
-      res = await updateList({ val: val, id: editId })
+      hide = message.loading('正在修改')
+      res = await updateList({ title: val, id: editId })
       hide()
+      message.success('修改成功')
     }
     fetchList()
-    if (res.code) return true
+    if (Number(res.code) == API_CODE.SUCCESS) return true
     else return false
   }
 
-  let fetchList = async () => {
-    let data = await getList()
-    setDataSource(data.data)
+  const fetchList = async () => {
+    let res = await queryList()
+    setDataSource(res.data)
   }
 
   useEffect(() => {
@@ -106,7 +115,7 @@ const Tags: React.FC<{}> = () => {
         actionRef={actionRef}
         toolBarRender={(action) => [
           <Button icon={<PlusOutlined />} type="primary" onClick={() => {
-            setEditId('')
+            setEditId(0)
             handleModalTitle('新建标签')  
             handleModalVisible(true)
           }}>
@@ -126,8 +135,8 @@ const Tags: React.FC<{}> = () => {
         title={modalTitle}
         modalVisible={modalVisible}
         onCancel={() => handleModalVisible(false)}
-        onSubmit={async value => {
-          const ok = await handleAddAndEdit(value);
+        onSubmit={async (value) => {
+          let ok = await handleAddAndEdit(value);
           if (ok) {
             handleModalVisible(false);
             if (actionRef.current) {

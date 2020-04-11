@@ -4,6 +4,8 @@
  */
 import { extend } from 'umi-request';
 import { notification } from 'antd';
+import { API_CODE } from './config'
+
 
 const codeMessage = {
   200: '服务器成功返回请求的数据。',
@@ -28,10 +30,10 @@ const codeMessage = {
  */
 const errorHandler = (error: { response: Response }): Response => {
   const { response } = error;
+  console.log(response)
   if (response && response.status) {
     const errorText = codeMessage[response.status] || response.statusText;
     const { status, url } = response;
-
     notification.error({
       message: `请求错误 ${status}: ${url}`,
       description: errorText,
@@ -46,11 +48,38 @@ const errorHandler = (error: { response: Response }): Response => {
 };
 
 /**
- * 配置request请求时的默认参数
+ * 配置Request请求时的默认参数
  */
-const request = extend({
+const Request = extend({
   errorHandler, // 默认错误处理
   credentials: 'include', // 默认请求是否带上cookie
+  timeout: 60000, // 默认请求最大时间
 });
 
-export default request;
+/**
+ * 全局请求拦截器
+ */
+Request.interceptors.request.use((url, options) => {
+  // ?. 存在则 string.prototype.toLocaleUpperCase(), 不存在则undefined
+  const headers = options.method?.toLocaleUpperCase() === 'POST'?
+    { 'Content-type': 'application/x-www-form-urlencoded' } : {'Content-type': 'application/json'}
+  console.log({ url, ...options, headers })
+  return { url, ...options, headers }
+})
+
+/**
+ * 全局响应拦截器
+ */
+Request.interceptors.response.use(async response => {
+  const res = await response.clone().json();
+  const { code, data } = res
+  if (code !== API_CODE.SUCCESS) {
+    notification.error({
+      message: `服务器器异常, 请稍后重试`,
+      description: `错误码: ${code}, 提示: ${data}`,
+    });
+  }
+  return response;
+})
+
+export default Request;

@@ -1,6 +1,6 @@
-const dbUser = require('../db/user');
-const utils = require('../utils');
-const API_STATUS = require('./api_status')
+const dbUser = require('../../db/user');
+const utils = require('../../utils');
+const API_STATUS = require('../api_status')
 
 const gets = async (req, res) => {
   let { query } = req;
