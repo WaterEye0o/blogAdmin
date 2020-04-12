@@ -4,7 +4,7 @@ interface Router {
   path?: string;
   component?: string;
   Routes?: string[];
-  routes?: Router[] | undefined;
+  routes?: Router[]
   authority?: string[];
   name?: string;
   icon?: string;
@@ -57,6 +57,11 @@ const asyncRoutes: Router = {
   Routes: ['src/pages/Authorized'],
   authority: ['admin', 'user'],
   routes: [
+    {
+      path: '/',
+      redirect: '/account',
+      authority: ['admin', 'user'],
+    },
     {
       name: 'account',
       icon: 'user',
@@ -124,11 +129,6 @@ const asyncRoutes: Router = {
       icon: 'warning',
       path: '/collects',
       component: './collects',
-    },
-    {
-      path: '/',
-      redirect: '/person',
-      authority: ['admin', 'user'],
     },
     {
       component: '404',
